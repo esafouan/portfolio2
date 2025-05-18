@@ -4,18 +4,38 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  background-color: #F7F7F7;
+
+
+
+@font-face {
+  font-family: 'acorn';
+  src: url('/public/acorn/Acorn/Acorn-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'gt';
+  src: url('/public/GT-America/GT-America-Compressed-Regular-Trial.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
+
+:root {
+  --titleFont: 'acorn', sans-serif;
+  --bodyFont: 'gt', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--titleFont);
+  margin: 0;
+}
+
+body, p, span, input, button {
+  font-family: var(--bodyFont);
+}
+body {
+  font-family: var(--bodyFont);
+  margin: 0;
+}
+
