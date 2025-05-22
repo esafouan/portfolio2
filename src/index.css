@@ -5,7 +5,9 @@
 }
 
 
-
+.rev-shape{
+  rotate: 180deg;
+}
 
 @font-face {
   font-family: 'acorn';
