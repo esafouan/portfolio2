@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import AboutSection from './components/about/AboutSection';
-import ProjectsSection from './components/ProjectsSection';
+import ProjectsSection from './components/Work/ProjectsSection';
 import ContactSection from './components/ContactSection';
 import  './index.css'; // or './App.css' if that’s where the styles are
 import BigScreenLayout from './components/fixedpart/BigScreen';
@@ -127,8 +127,8 @@ function App() {
 
   const sections = [
     { name: 'ABOUT', color: '#F2F2F2', component: AboutSection },
-    { name: 'PROJECTS', color: '#EAE4D5', component: ProjectsSection },
-    { name: 'TECH-STACK', color: '#B6B09F', component: ContactSection },
+    { name: 'WORK', color: '#EAE4D5', component: ProjectsSection },
+    { name: 'SKILLS', color: '#B6B09F', component: ContactSection },
   ];
 
   // Animation variants for sections
