@@ -70,7 +70,15 @@ const About = () => (
 
         .portfolio-container {
           max-height: 650px;
-          overflow-y: auto;
+            overflow : scroll;
+
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+              display: none;
+            }
           color: #111827;
 
         }

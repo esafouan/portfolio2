@@ -8,6 +8,7 @@ import  './index.css'; // or './App.css' if that’s where the styles are
 import BigScreenLayout from './components/fixedpart/BigScreen';
 import { useWindowWidth } from './hooks/resizeWindow';
 import SmallScreenLayout from './components/fixedpart/SmallScreen';
+import SmoothFollower from './components/smoth_cursor';
 
 
 const AppContainer = styled.div`
@@ -82,7 +83,15 @@ const ContentContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: visible;
+  overflow : scroll;
+
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const FixedPart = styled.div`
@@ -168,58 +177,61 @@ function App() {
   };
 
   return (
-    <AppContainer>
+    <>
 
-      <FixedPart>
+      <AppContainer>
 
-        { width >= 1150 ? <BigScreenLayout/> : <SmallScreenLayout/>}
+        <FixedPart>
 
-      </FixedPart>
+          { width >= 1150 ? <BigScreenLayout/> : <SmallScreenLayout/>}
 
-      <DynamicPart>
+        </FixedPart>
 
-        <AnimatePresence>
-          {sections.map((section, index) => (
-            <Section
-              key={index}
-              $index={index}
-              $isActive={activeSection === index}
-              $activeColor={section.color}
-              $activeIndex={activeSection}
-              onClick={() => setActiveSection(index)}
-              style={{
-                cursor: 'pointer',
-              }}
-              initial="hidden"
-              animate="visible"
-              variants={sectionVariants}
-              custom={index}
-            >
-              <SectionTitle 
+        <DynamicPart>
+
+          <AnimatePresence>
+            {sections.map((section, index) => (
+              <Section
+                key={index}
+                $index={index}
                 $isActive={activeSection === index}
-                $color={section.color}
-                $index={index}          
+                $activeColor={section.color}
+                $activeIndex={activeSection}
+                onClick={() => setActiveSection(index)}
+                style={{
+                  cursor: 'pointer',
+                }}
+                initial="hidden"
+                animate="visible"
+                variants={sectionVariants}
+                custom={index}
               >
-                # {section.name}
-              </SectionTitle>
-              
-              {activeSection === index && showContent && (
-                <ContentContainer
-                  initial="hidden"
-                  animate="visible"
-                  variants={contentVariants}
+                <SectionTitle 
+                  $isActive={activeSection === index}
+                  $color={section.color}
+                  $index={index}          
                 >
-                  <section.component />
-                </ContentContainer>
-              )}
-            </Section>
-          ))}
-        </AnimatePresence>
+                  # {section.name}
+                </SectionTitle>
+                
+                {activeSection === index && showContent && (
+                  <ContentContainer
+                    initial="hidden"
+                    animate="visible"
+                    variants={contentVariants}
+                  >
+                    <section.component />
+                  </ContentContainer>
+                )}
+              </Section>
+            ))}
+          </AnimatePresence>
 
-      </DynamicPart>
+        </DynamicPart>
 
-
-    </AppContainer>
+      </AppContainer>
+      <SmoothFollower />
+      </>
   );
 }
 
