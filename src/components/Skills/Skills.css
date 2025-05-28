@@ -1,0 +1,204 @@
+.skills {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 85%;
+    justify-content: center;
+    padding: 3% 5% 1%;
+    perspective: 50rem;
+    position: relative
+}
+
+.skills .skill {
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    width: clamp(9rem,3vw + 8.3rem,16rem)
+}
+
+.skills .skill .iconContainer {
+    align-items: center;
+    background-color:      #131a45;
+    ;
+    border-radius: 10px;
+    display: flex;
+    height: clamp(1.625rem,1.7vw + 1.3rem,5.5rem);
+    justify-content: center;
+    width: clamp(1.625rem,1.7vw + 1.3rem,5.5rem)
+}
+
+.skills .skill .iconContainer img {
+    height: 55%;
+    mix-blend-mode: luminosity;
+    opacity: .8
+}
+
+.skills .skill .skillContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    text-transform: uppercase;
+    width: auto
+}
+
+.skills .skill .skillContent p {
+    color: #346600;
+    font-family: Montserrat,sans-serif;
+    font-size: clamp(.6rem,.2vw + .6rem,1.1rem);
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.skills .skill .skillContent p:last-child {
+    font-size: clamp(.45rem,.2vw + .5rem,1rem);
+    opacity: .5
+}
+
+.skills .leftSide {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2%;
+    height: 100%;
+    transform: perspective(150rem) rotateY(15deg) translateZ(5px) translateX(70px);
+    transform-origin: left;
+    width: 100%
+}
+
+.skills .leftSide .skillsContainer {
+    align-content: center;
+    align-items: center;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    background-color: #c8f29b0d;
+    border: 2px solid #c8f29b33;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    height: 50%;
+    justify-content: center;
+    padding: 2%;
+    position: relative;
+    transition: all .8s cubic-bezier(.215,.61,.355,1);
+    width: 49%
+}
+
+.skills .leftSide .skillsContainer:first-child {
+    width: 100%
+}
+
+.skills .leftSide .skillsContainer:before {
+    background-image: url('../../assets/bg.png');
+    background-size: 65px;
+    border-radius: 10px;
+    content: "";
+    display: block;
+    height: 100%;
+    margin: auto;
+    opacity: 1;
+    position: absolute;
+    transition: all .35s cubic-bezier(.215,.61,.355,1);
+    width: 100%
+}
+
+.skills .leftSide .skillsContainer:hover:before {
+    background-size: 67px;
+    box-shadow: inset 0 0 7rem #c8f29b33;
+    opacity: .5
+}
+
+.skills .leftSide .skillsContainer:not(:hover) {
+    filter: blur(5px)
+}
+
+.skills .leftSide .skillsContainer:hover {
+    filter: blur(0);
+    transform: scale(1.01)
+}
+
+.skills .leftSide .skillRow {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+    width: 100%
+}
+
+.skills .rightSide {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 70%
+}
+
+.skills .rightSide .percentage {
+    margin: 0;
+    position: absolute
+}
+
+.skills .rightSide .percentage .counterView {
+    color: #f7f0f5;
+    font-family: Montserrat,sans-serif;
+    font-size: clamp(4rem,8.1vw + 2.2rem,23rem);
+    font-weight: 600;
+    opacity: .5;
+    -webkit-user-select: none;
+    user-select: none
+}
+
+.skills .rightSide .catName {
+    color: #131a45;
+    filter: drop-shadow(0 0 10px black);
+    -webkit-filter: drop-shadow(0 0 10px #000);
+    font-family: Stay Dreaming;
+    font-size: clamp(2.5rem,4.5vw + 1.5rem,13rem);
+    margin: 0;
+    position: absolute;
+    -webkit-user-select: none;
+    user-select: none;
+    z-index: 2
+}
+
+@media(max-width: 768px) {
+    .skills {
+        flex-direction:column-reverse;
+        height: 75%;
+        justify-content: flex-end
+    }
+
+    .skills .leftSide .skillsContainer {
+        align-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        height: auto;
+        justify-content: center;
+        padding: 4%
+    }
+
+    .skills .leftSide .skillsContainer .skill {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 5px
+    }
+
+    .skills .leftSide .skillsContainer .skill .iconContainer {
+        border-radius: 6px
+    }
+
+    .skills .rightSide {
+        height: 45%;
+        width: 100%
+    }
+}
+
