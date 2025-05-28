@@ -20,10 +20,13 @@ const TypingText = ({ text, speed = 50, delay = 0 }) => {
   }, [index, text, speed, started]);
 
   return (
-    <span>
-      {displayText}
-      <span className="cursor">|</span>
-    </span>
+    <div className="typing-text-wrapper">
+      <div className="invisible-text">{text}</div>
+      <div className="visible-text-container">
+        <span className="visible-text">{displayText}</span>
+        <span className="cursor">|</span>
+      </div>
+    </div>
   );
 };
 
@@ -70,22 +73,18 @@ const About = () => (
 
         .portfolio-container {
           max-height: 650px;
-            overflow : scroll;
-
-
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-
-            &::-webkit-scrollbar {
-              display: none;
-            }
+          overflow: scroll;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          &::-webkit-scrollbar {
+            display: none;
+          }
           color: #111827;
-
         }
 
         .responsive-wrapper {
-          max-width: calc(100vw - 500px);
-          margin: 0 auto;
+          width: calc(100vw - 520px);
+          max-width: calc(100vw - 520px);
           padding: 0 1rem;
         }
 
@@ -116,6 +115,40 @@ const About = () => (
           color: #374151;
           line-height: 1.6;
           margin-bottom: 1.25rem;
+          position: relative;
+          text-align: left;
+        }
+
+        .typing-text-wrapper {
+          position: relative;
+          display: block;
+          width: 100%;
+          min-height: 1.6em;
+        }
+
+        .invisible-text {
+          visibility: hidden;
+          position: absolute;
+          top: 0;
+          left: 0;
+          white-space: pre-wrap;
+          width: 100%;
+          font-size: inherit;
+          line-height: inherit;
+          text-align: left;
+        }
+
+        .visible-text-container {
+          position: relative;
+          display: block;
+          width: 100%;
+          text-align: left;
+        }
+
+        .visible-text {
+          white-space: pre-wrap;
+          display: inline;
+          text-align: left;
         }
 
         .cv-button {
@@ -145,6 +178,7 @@ const About = () => (
         .cursor {
           animation: pulse 1s infinite;
           color: #9ca3af;
+          display: inline-block;
         }
 
         @keyframes slideDown {
@@ -180,6 +214,7 @@ const About = () => (
             margin: 1rem auto;
           }
           .responsive-wrapper {
+            width: 100%;
             max-width: 100%;
           }
             .content-wrapper {
@@ -207,6 +242,7 @@ const About = () => (
           }
 
           .responsive-wrapper {
+            width: 100%;
             max-width: 100%;
           }
 

@@ -9,6 +9,7 @@ import BigScreenLayout from './components/fixedpart/BigScreen';
 import { useWindowWidth } from './hooks/resizeWindow';
 import SmallScreenLayout from './components/fixedpart/SmallScreen';
 import SmoothFollower from './components/smoth_cursor';
+import SkillsSection from './components/Skills/SkillsSection';
 
 
 const AppContainer = styled.div`
@@ -17,7 +18,7 @@ const AppContainer = styled.div`
   overflow: hidden;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(300px, 400px)  1fr;
+  grid-template-columns: 400px  1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -116,10 +117,15 @@ function App() {
   const [activeSection, setActiveSection] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showContent, setShowContent] = useState(true);
-  const width = useWindowWidth()
+  const width = useWindowWidth();
+  const initialRender = React.useRef(true);
 
   useEffect(() => {
     setIsLoaded(true);
+    // Mark initial render as complete after component mounts
+    return () => {
+      initialRender.current = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -129,7 +135,7 @@ function App() {
     // Show content after transition completes
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 700); // Match the transition duration
+    }, 300); // Faster transition for better responsiveness
     
     return () => clearTimeout(timer);
   }, [activeSection]);
@@ -137,31 +143,51 @@ function App() {
   const sections = [
     { name: 'ABOUT', color: '#F2F2F2', component: AboutSection },
     { name: 'WORK', color: '#EAE4D5', component: ProjectsSection },
-    { name: 'SKILLS', color: '#B6B09F', component: ContactSection },
+    { name: 'SKILLS', color: '#B6B09F', component: SkillsSection },
   ];
 
   // Animation variants for sections
   const sectionVariants = {
-    hidden: (index) => ({
-      y: '-100%',
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 40,
-        damping: 15,
+    hidden: (index) => {
+      // If it's the initial render and this is the active section (ABOUT), don't animate
+      if (initialRender.current && index === 0) {
+        return {
+          y: 0,
+          opacity: 1
+        };
       }
-    }),
-    visible: (index) => ({
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 40,
-        damping: 15,
-        delay: index * 0.4,
-        duration: 1.2
+      // Otherwise, use the normal animation
+      return {
+        y: '-100%',
+        opacity: 0,
+        transition: {
+          type: 'spring',
+          stiffness: 40,
+          damping: 15,
+        }
+      };
+    },
+    visible: (index) => {
+      // If it's the initial render and this is the active section (ABOUT), don't animate
+      if (initialRender.current && index === 0) {
+        return {
+          y: 0,
+          opacity: 1
+        };
       }
-    })
+      // Otherwise, use the normal animation
+      return {
+        y: 0,
+        opacity: 1,
+        transition: {
+          type: 'spring',
+          stiffness: 40,
+          damping: 15,
+          delay: index * 0.2,
+          duration: 1.2
+        }
+      };
+    }
   };
 
   // Animation variants for content
@@ -170,25 +196,20 @@ function App() {
     visible: { 
       opacity: 1,
       transition: { 
-        duration: 0.5,
-        delay: 0.2 // Small delay after section expansion
+        duration: 0.3,
+        delay: 0.1 // Shorter delay for better responsiveness
       }
     }
   };
 
   return (
     <>
-
       <AppContainer>
-
         <FixedPart>
-
           { width >= 1150 ? <BigScreenLayout/> : <SmallScreenLayout/>}
-
         </FixedPart>
 
         <DynamicPart>
-
           <AnimatePresence>
             {sections.map((section, index) => (
               <Section
@@ -226,12 +247,10 @@ function App() {
               </Section>
             ))}
           </AnimatePresence>
-
         </DynamicPart>
-
       </AppContainer>
       <SmoothFollower />
-      </>
+    </>
   );
 }
 
