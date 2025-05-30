@@ -156,9 +156,13 @@ function App() {
           opacity: 1
         };
       }
-      // Otherwise, use the normal animation
+      
+      // Check screen width and adjust animation accordingly
+      const isSmallScreen = window.innerWidth <= 1150;
+      
+      // Otherwise, use the normal animation with adjusted values for small screens
       return {
-        y: '-100%',
+        y: isSmallScreen ? '100%' : '-100%',
         opacity: 0,
         transition: {
           type: 'spring',

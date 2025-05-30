@@ -1,11 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import  './Skills.css'; // or './App.css' if that’s where the styles are
+import './Skills.css';
+import { motion, AnimatePresence } from 'framer-motion';
 
+// Animation variants for text and numbers
+const textVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -20,
+    transition: {
+      duration: 0.3,
+      ease: "easeIn"
+    }
+  }
+};
 
-
-
+const numberVariants = {
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { 
+    opacity: 1, 
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 50,
+      damping: 10,
+      duration: 0.5
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    scale: 1.2,
+    transition: {
+      duration: 0.3
+    }
+  }
+};
 
 const SkillsSection = () => {
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
+
   // Web Development Skills
   const webSkills = [
     { name: "HTML", experience: "2 YRS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
@@ -34,9 +76,9 @@ const SkillsSection = () => {
 
   // Skill categories with percentages
   const skillCategories = [
-    { skills: webSkills, title: "Web Development", percentage: 85 },
+    { skills: webSkills, title: "Web", percentage: 85 },
     { skills: devOpsSkills, title: "DevOps", percentage: 70 },
-    { skills: toolsSkills, title: "Tools & Version Control", percentage: 90 }
+    { skills: toolsSkills, title: "Tools", percentage: 90 }
   ];
 
   // Function to render a skill item
@@ -54,58 +96,33 @@ const SkillsSection = () => {
 
   // Function to render a skills container
   const renderSkillsContainer = (category, categoryIndex) => (
-    <div className="skillsContainer" key={categoryIndex}>
+    <div 
+      className="skillsContainer" 
+      key={categoryIndex}
+      onMouseEnter={() => {
+        setActiveCategory(categoryIndex);
+        setIsHovering(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovering(false);
+      }}
+    >
       {category.skills.map(renderSkill)}
     </div>
   );
-  const [animatedPercent, setAnimatedPercent] = useState(0);
-
-  const targetPercent = 85; // Set this dynamically per category if needed
-
-  useEffect(() => {
-    let current = 0;
-    const interval = setInterval(() => {
-      current += 1;
-      if (current > targetPercent) {
-        clearInterval(interval);
-      } else {
-        setAnimatedPercent(current);
-      }
-    }, 20); // Speed of animation
-    return () => clearInterval(interval);
-  }, []);
-
-  // Split digits and calculate translateY for each digit
-  const digits = String(animatedPercent).padStart(3, '0').split('').map(Number);
-  const getTranslateY = digit => `translateY(-${digit * 34}px)`; // Adjust 34px to digit height
 
   return (
-    <section className="skills" data-projection-id="7" style={{opacity: 1}}>
-      <div className="leftSide" data-projection-id="8" style={{opacity: 1, transform: 'rotateY(15deg) translateZ(0px)'}}>
+    <section className="skills">
+      <div 
+        className="leftSide"
+        onMouseLeave={() => {
+          setIsHovering(false);
+        }}
+      >
         {skillCategories.map(renderSkillsContainer)}
       </div>
       
-      <div className="rightSide">
-        <h1 className="catName">Patient</h1>
-        <div className="percentage">
-          <div className="counterView">
-            %
-            {digits.map((digit, idx) => (
-              <div className="counterContainer" key={idx}>
-                <div
-                  className="counterColumn"
-                  style={{ transform: getTranslateY(digit), transition: 'transform 0.3s ease-in-out' }}
-                >
-                  {[9,8,7,6,5,4,3,2,1,0].map((d, i) => (
-                    <div className="digit" key={i}><span>{d}</span></div>
-                  ))}
-                </div>
-                <span className="digitPlaceholder">0</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+
     </section>
   );
 };
