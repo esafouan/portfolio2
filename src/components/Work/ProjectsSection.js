@@ -93,6 +93,18 @@ const CategoryFilters = styled.div`
   gap: 1.5rem;
   padding: 1rem 0;
   position: sticky;
+  
+    @media (max-width: 768px) {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  @media (max-width: 580px) {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    flex-direction: column;
+    width: fit-content;
+  }
 `;
 
 const CategoryButton = styled.button`
@@ -244,12 +256,13 @@ const techIcons = {
 
 const ProjectsContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: relative;
   display : flex;
   flex-direction : column;
   align-items : center;
   justify-content : center;
+  
 
 `;
 
@@ -271,6 +284,11 @@ const ContentWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 1150px) {
+      min-height: calc(100vh - 350px);
+  height: calc(100vh - 354px);
+}
 `;
 
 const CardsContainer = styled.div`

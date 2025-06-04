@@ -27,7 +27,7 @@ const AppContainer = styled.div`
   @media (max-width: 1150px) {
     /* Stack vertically */
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 214px 1fr;
   }
 `;
 
@@ -57,7 +57,10 @@ const Section = styled(motion.div)`
   @media (max-width: 750px) {
     width: ${props => props.$isActive ? 'calc(100% - 70px)' : '35px'};
   }
+  @media (max-width: 1150px) {
+  max-height: calc(100vh - 214px);
 
+  }
 `;
 
 const SectionTitle = styled.h1`
